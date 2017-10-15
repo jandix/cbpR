@@ -1,0 +1,9 @@
+Package: cbpR
+Title: An API wrapper for the Congressional Bills Project API.
+Version: 0.1
+Authors@R: person("Dix", "Jan", email = "jan.dix@uni-konstanz.de",
+                  role = c("aut", "cre"))
+Description: An API wrapper for the Congressional Bills Project API.
+Depends: R (>= 3.1.0)
+License: MIT
+RoxygenNote: 6.0.1
