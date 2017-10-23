@@ -17,8 +17,13 @@ cbpR_bills <- function(bill_id = NULL,
                        limit = 2000,
                        key = Sys.getenv("CBPR_API_KEY")) {
   
+  # check if an api key is provided
+  if()
+  
+  # define base url
   url <- "http://ec2-34-215-165-118.us-west-2.compute.amazonaws.com/api/bill"
   
+  # define parameters
   parameters <- list(
     id = bill_id,
     billType = bill_type,
@@ -28,12 +33,17 @@ cbpR_bills <- function(bill_id = NULL,
     limit = limit
   )
   
+  # joining url using base url and parameters
   url <- httr::modify_url(url,
                           query = parameters)
   
-  
+  # GET request 
   res <- httr::GET(url)
-  res <- jsonlite::fromJSON(httr::content(res, as = "text"))
   
+  # parse json result to R Object
+  res <- httr::content(res, as = "text")
+  res <- jsonlite::fromJSON(res)
+  
+  # return list including meta information and result set
   res
 }
