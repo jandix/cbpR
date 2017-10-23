@@ -1,11 +1,11 @@
 #' Request bills based on the query parameters
 #' 
-#' @param key character. A valid API key which can be requested at .
-#' @param id character. The id of a certain bill.
+#' @param bill_id character. The id of a certain bill.
+#' @param bill_type character. Bill type ('hr' (house bill); 's' (senate bill); 'hres' (House resolution); 'sres' (Senate resolution); 'hcon' (House Concurrent Resolution); 'scon' (Senate Concurrent Resolution); 'hjres' (House Joint Resolution); 'sjres' (Senate Joint Resolution).
 #' @param name character. The last name of a representative or senator.
-#' @param offset integer.
-#' @param limit integer.
-#' @param key character.
+#' @param offset integer. Offset of the query.
+#' @param limit integer. Limit of the query.
+#' @param key character. A valid API key which can be requested at .
 #' 
 #' @export
 
@@ -35,5 +35,5 @@ cbpR_bills <- function(bill_id = NULL,
   res <- httr::GET(url)
   res <- jsonlite::fromJSON(httr::content(res, as = "text"))
   
-  list(res)
+  res
 }
