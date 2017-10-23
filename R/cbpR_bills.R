@@ -19,7 +19,7 @@ cbpR_bills <- function(bill_id = NULL,
   
   # check if an api key is provided
   if(is.null(key)) {
-    stop("Please provide an API call.", call. = F)
+    stop("Please provide an API key.", call. = F)
   }
   
   # define base url
@@ -48,9 +48,36 @@ cbpR_bills <- function(bill_id = NULL,
   }
   
   # parse json result to R Object
-  res <- httr::content(res, as = "text")
-  res <- jsonlite::fromJSON(res)
+  parsed <- httr::content(res, as = "text")
+  parsed <- jsonlite::fromJSON(parsed)
   
-  # return list including meta information and result set
-  res
+  # check if API return error
+  if (httr::http_error(res)) {
+    stop(
+      sprintf(
+        "API request failed [%s]\n%s",
+        httr::status_code(res),
+        parsed$meta$message
+      )
+    )
+  }
+  
+  # return a simple S3 object including meta information and result set
+  structure(
+    list(
+      meta = list (
+        limit = parsed$meta$limit,
+        offset = parsed$meta$offset,
+        total_rows = parsed$meta$rows,
+        url = url,
+        rate_limit = list (
+          limit = parsed$meta$rate_limit$limit,
+          current = parsed$meta$rate_limit$current,
+          remaining = parsed$meta$rate_limit$remaining
+        )
+      ),
+      result_df = parsed$result
+    ),
+    class = "cbpR_api"
+  )
 }
