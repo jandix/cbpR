@@ -18,7 +18,9 @@ cbpR_bills <- function(bill_id = NULL,
                        key = Sys.getenv("CBPR_API_KEY")) {
   
   # check if an api key is provided
-  if()
+  if(is.null(key)) {
+    stop("Please provide an API call.", call. = F)
+  }
   
   # define base url
   url <- "http://ec2-34-215-165-118.us-west-2.compute.amazonaws.com/api/bill"
