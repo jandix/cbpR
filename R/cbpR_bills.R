@@ -40,6 +40,11 @@ cbpR_bills <- function(bill_id = NULL,
   # GET request 
   res <- httr::GET(url)
   
+  # check if correct response type
+  if (httr::http_type(res) != "application/json") {
+    stop("API did not return JSON", call. = F)
+  }
+  
   # parse json result to R Object
   res <- httr::content(res, as = "text")
   res <- jsonlite::fromJSON(res)
