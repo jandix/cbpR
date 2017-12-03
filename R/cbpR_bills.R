@@ -23,7 +23,7 @@ cbpR_bills <- function(bill_id = NULL,
   }
   
   # define base url
-  url <- "http://ec2-34-215-165-118.us-west-2.compute.amazonaws.com/api/bill"
+  url <- "http://ec2-34-215-165-118.us-west-2.compute.amazonaws.com/api/bills"
   
   # define parameters
   parameters <- list(
