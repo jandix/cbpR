@@ -1,6 +1,6 @@
 ## Purpose / Description
 
-Client for the ZEIT ONLINE Content API - Interface to gather newspaper articles from *DIE ZEIT* and *ZEIT ONLINE*, based on a multilevel query. Including sorting algorithms and graphical output options. 
+An API wrapper for the Congressional Bills Project API. You find an extensive documentation on the [official website](https://cbapi.dataflood.de/documentation/). An API key can be requested [here](https://cbapi.dataflood.de/start).
 
 ## Installation
 
