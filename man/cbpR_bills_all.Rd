@@ -2,20 +2,20 @@
 % Please edit documentation in R/cbpR_bills_all.R
 \name{cbpR_bills_all}
 \alias{cbpR_bills_all}
-\title{Get all query parameters.}
+\title{Request all bills based on the query parameters}
 \usage{
-cbpR_bills_all(bill_id = NULL, bill_type = NULL, name = NULL,
-  key = Sys.getenv("CBPR_API_KEY"))
+cbpR_bills_all(q = NULL, order = NULL, key = Sys.getenv("CBPR_API_KEY"))
 }
 \arguments{
-\item{bill_id}{character. The id of a certain bill.}
+\item{q}{character. The search query. See \url{https://cbapi.dataflood.de/documentation/endpoints/bills.html} for detailed description.}
 
-\item{bill_type}{character. Bill type ('hr' (house bill); 's' (senate bill); 'hres' (House resolution); 'sres' (Senate resolution); 'hcon' (House Concurrent Resolution); 'scon' (Senate Concurrent Resolution); 'hjres' (House Joint Resolution); 'sjres' (Senate Joint Resolution).}
+\item{order}{character.}
 
-\item{name}{character. The last name of a representative or senator.}
-
-\item{key}{character. A valid API key which can be requested at URL.}
+\item{key}{character. A valid API key which can be requested at \url{https://cbapi.dataflood.de/start}.}
+}
+\value{
+The output is a cbpR API object. Which includes meta information about the query and the respective data set that is defined in the parameter \code{q}.
 }
 \description{
-Get all query parameters.
+\code{cbpR_bills} returns all US Congressional Bills depending on the provided query regardless of the number of rows. The function uses the API of the extensive Congressional Bills Project. Information about the Congressional Bills Project can be found on the official website: \url{http://congressionalbills.org}.
 }
