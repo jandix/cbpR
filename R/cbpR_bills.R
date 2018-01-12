@@ -1,20 +1,24 @@
 #' Request bills based on the query parameters
 #' 
-#' @param bill_id character. The id of a certain bill.
-#' @param bill_type character. Bill type ('hr' (house bill); 's' (senate bill); 'hres' (House resolution); 'sres' (Senate resolution); 'hcon' (House Concurrent Resolution); 'scon' (Senate Concurrent Resolution); 'hjres' (House Joint Resolution); 'sjres' (Senate Joint Resolution).
-#' @param name character. The last name of a representative or senator.
+#' \code{cbpR_bills} returns US Congressional Bills depending on the provided query. The function uses the API of the extensive Congressional Bills Project. Information about the Congressional Bills Project can be found on the official website: \url{http://congressionalbills.org}.
+#' 
+#' @param q character. The search query. See \url{https://cbapi.dataflood.de/documentation/endpoints/bills.html} for detailed description.
 #' @param offset integer. Offset of the query.
 #' @param limit integer. Limit of the query.
-#' @param key character. A valid API key which can be requested at .
+#' @param order character. 
+#' @param key character. A valid API key which can be requested at \url{https://cbapi.dataflood.de/start}.
+#' 
+#' @return The output is a cbpR API object. Which includes meta information about the query and the respective data set that is defined in the parameter \code{q}. 
+#' 
+#' @example cbpR_bills("NameLast=Washington", limit = 100)
 #' 
 #' @export
 
 
-cbpR_bills <- function(bill_id = NULL,
-                       bill_type = NULL,
-                       name = NULL,
+cbpR_bills <- function(q = NULL,
                        offset = 1,
                        limit = 2000,
+                       order = NULL,
                        key = Sys.getenv("CBPR_API_KEY")) {
   
   # check if an api key is provided
@@ -22,17 +26,21 @@ cbpR_bills <- function(bill_id = NULL,
     stop("Please provide an API key.", call. = F)
   }
   
+  # check if query is provided
+  if(is.null(q)) {
+    stop("Please provide a query.", call. = F)
+  }
+  
   # define base url
-  url <- "http://ec2-34-215-165-118.us-west-2.compute.amazonaws.com/api/bills"
+  url <- "https://cbapi.dataflood.de/api/bills"
   
   # define parameters
   parameters <- list(
-    id = bill_id,
-    billType = bill_type,
-    name = name, 
-    key = key,
+    q = q, 
     offset = offset,
-    limit = limit
+    limit = limit,
+    order = order,
+    key = key
   )
   
   # joining url using base url and parameters
